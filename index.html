@@ -290,7 +290,7 @@
   /* Example Gallery */
   .example-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly smaller minmax value */
     gap: 1.5rem;
     margin: 1.5rem 0;
   }
@@ -313,8 +313,10 @@
     height: 220px;
     object-fit: cover;
     border-bottom: 2px dashed var(--secondary);
+    max-width: 100%; /* Add this */
+    display: block; /* Add this */
   }
-  
+
   .example-caption {
     padding: 1rem;
     font-size: 0.9rem;
@@ -971,7 +973,10 @@
       <div class="artist-spotlight">
         <h3>Artist Spotlight: Rodrigo de Filippis / Jesús Perea</h3>
         <div class="spotlight-content">
-          <p>Rodrigo de Filippis: Contemporary collage artist who combines precise digital manipulation with traditional cut-and-paste aesthetics, creating seamless transitions between physical and digital elements.</p>
+          <p>Rodrigo de Filippis: Contemporary collage artist who combines precise digital manipulation with traditional cut-and-paste aesthetics, 
+            creating seamless transitions between physical and digital elements.</p>
+          <p>Jesús Perea: City landscape artist working with mixed media compositions, blending abstract and figurative elements through digital techniques 
+            to create limited edition visual narratives that explore urban environments.</p>
         </div>
       </div>
     </div>
