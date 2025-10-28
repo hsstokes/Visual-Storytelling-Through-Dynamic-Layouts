@@ -1489,11 +1489,23 @@ const shortcuts = [
 
 let currentQuestion = 0;
 let score = 0;
+let answeredQuestions = 0;
 
 function initShortcutGame() {
+  // Reset game state
+  currentQuestion = 0;
+  score = 0;
+  answeredQuestions = 0;
+  
   // Shuffle shortcuts for randomness
   shuffleArray(shortcuts);
   loadQuestion();
+  
+  // Set up event listener for next question button
+  document.getElementById('nextQuestion').addEventListener('click', function() {
+    currentQuestion++;
+    loadQuestion();
+  });
 }
 
 function loadQuestion() {
@@ -1513,7 +1525,7 @@ function loadQuestion() {
   while (options.length < 4) {
     const randomIndex = Math.floor(Math.random() * shortcuts.length);
     const randomOption = shortcuts[randomIndex].shortcut;
-    if (!options.includes(randomOption)) {
+    if (!options.includes(randomOption) && randomOption !== correctShortcut) {
       options.push(randomOption);
     }
   }
@@ -1529,7 +1541,9 @@ function loadQuestion() {
     const button = document.createElement('button');
     button.className = 'shortcut-option';
     button.textContent = option;
-    button.addEventListener('click', () => checkAnswer(option, correctShortcut));
+    button.onclick = function() { 
+      checkAnswer(this.textContent, correctShortcut);
+    };
     optionsContainer.appendChild(button);
   });
   
@@ -1541,10 +1555,13 @@ function loadQuestion() {
   document.getElementById('nextQuestion').style.display = 'none';
   
   // Update score display
-  document.getElementById('shortcutScore').textContent = `Score: ${score} / ${currentQuestion}`;
+  document.getElementById('shortcutScore').textContent = `Score: ${score} / ${answeredQuestions}`;
 }
 
 function checkAnswer(selectedOption, correctOption) {
+  // Increment answered questions counter
+  answeredQuestions++;
+  
   const isCorrect = selectedOption === correctOption;
   const feedbackElement = document.getElementById('shortcutFeedback');
   
@@ -1572,13 +1589,9 @@ function checkAnswer(selectedOption, correctOption) {
   
   // Show next button
   document.getElementById('nextQuestion').style.display = 'block';
-  document.getElementById('nextQuestion').addEventListener('click', () => {
-    currentQuestion++;
-    loadQuestion();
-  });
   
   // Update score
-  document.getElementById('shortcutScore').textContent = `Score: ${score} / ${currentQuestion + 1}`;
+  document.getElementById('shortcutScore').textContent = `Score: ${score} / ${answeredQuestions}`;
 }
 
 function finishGame() {
@@ -1609,6 +1622,7 @@ function finishGame() {
 function resetGame() {
   currentQuestion = 0;
   score = 0;
+  answeredQuestions = 0;
   shuffleArray(shortcuts);
   
   // Reset game container
@@ -1630,6 +1644,12 @@ function resetGame() {
     
     <button class="btn btn-primary" id="nextQuestion" style="display: none;">Next Question</button>
   `;
+  
+  // Set up event listener for next question button
+  document.getElementById('nextQuestion').addEventListener('click', function() {
+    currentQuestion++;
+    loadQuestion();
+  });
   
   loadQuestion();
 }
