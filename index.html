@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Visual Storytelling Through Dynamic Layouts</title>
+<style>
+  :root {
+    --primary: #ea37a3;
+    --primary-light: #fdf1f5;
+    --secondary: #0a8080;
+    --secondary-light: #f5ffff;
+    --dark: #222;
+    --light: #fff;
+    --grid-light: #e0e0e0;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: "Space Mono", "IBM Plex Mono", monospace;
+    background-image:
+      linear-gradient(var(--grid-light) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-light) 1px, transparent 1px),
+      linear-gradient(#ffeaf5 2px, transparent 2px),
+      linear-gradient(90deg, #ffeaf5 2px, transparent 2px);
+    background-size: 64px 64px, 64px 64px, 320px 320px, 320px 320px;
+    background-attachment: fixed;
+    color: var(--dark);
+    padding: 3vw;
+    line-height: 1.6;
+  }
+  
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.97);
+    border: 3px double var(--primary);
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    padding: 3rem 4rem;
+    animation: fadeIn 1s ease;
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 2rem 1.5rem;
+    }
+  }
+  
+  /* Typography */
+  h1, h2, h3 {
+    letter-spacing: 0.5px;
+    margin-bottom: 0.8em;
+  }
+  
+  h1 {
+    color: var(--primary);
+    font-size: 2rem;
+    border-bottom: 3px dotted var(--secondary);
+    padding-bottom: 12px;
+    margin-bottom: 1.5rem;
+  }
+  
+  h2 {
+    color: var(--secondary);
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  h2::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 24px;
+    background: var(--primary);
+    margin-right: 10px;
+  }
+  
+  p, li {
+    line-height: 1.7;
+    margin-bottom: 1em;
+  }
+  
+  .highlight {
+    color: var(--primary);
+    font-weight: 600;
+  }
+  
+  /* Content Containers */
+  .module {
+    border: 2px solid var(--secondary);
+    border-radius: 12px;
+    background: #fff;
+    margin: 2rem 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .module-header {
+    background: var(--secondary-light);
+    padding: 1rem 1.5rem;
+    border-bottom: 2px dashed var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .module-title {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--secondary);
+  }
+  
+  .module-content {
+    padding: 1.5rem;
+  }
+  
+  .content-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .content-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .note {
+    border-left: 4px solid var(--primary);
+    background: var(--primary-light);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 8px 8px 0;
+  }
+  
+  /* Dynamic Grid System */
+  .dynamic-grid-container {
+    border: 2px dashed var(--secondary);
+    background: #fafafa;
+    padding: 20px;
+    margin: 2rem 0;
+    border-radius: 12px;
+    position: relative;
+  }
+  
+  .dynamic-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 60px);
+    gap: 12px;
+    transition: all 0.5s ease;
+  }
+  
+  .grid-item {
+    background: var(--secondary-light);
+    border: 1px solid var(--secondary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .grid-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    z-index: 1;
+  }
+  
+  .grid-item.primary {
+    background: var(--primary-light);
+    border-color: var(--primary);
+  }
+  
+  .grid-item.texture {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f3e6ed"/><path d="M0 20 L100 20 M0 40 L100 40 M0 60 L100 60 M0 80 L100 80" stroke="%23e9d2e0" stroke-width="0.8"/></svg>');
+    border-color: #d4b3c6;
+  }
+  
+  .grid-item.secondary {
+    background-color: #f0f7f7;
+    border-color: #95c9c9;
+  }
+  
+  .grid-item.quote {
+    background-color: #fff9e6;
+    border-color: #e6d292;
+    font-style: italic;
+  }
+  
+  /* Grid Tools */
+  .grid-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+  
+  .btn {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    font-family: inherit;
+  }
+  
+  .btn-primary {
+    background: var(--primary);
+  }
+  
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .btn:active {
+    transform: translateY(0);
+  }
+  
+  .btn svg {
+    margin-right: 8px;
+  }
+  
+  /* Story Flow Visualization */
+  .story-flow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f9f9f9;
+    border-radius: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .flow-step {
+    min-width: 150px;
+    padding: 15px;
+    background: white;
+    border: 1px solid var(--secondary);
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    scroll-snap-align: center;
+  }
+  
+  .flow-step::after {
+    content: "→";
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary);
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .flow-step:last-child::after {
+    display: none;
+  }
+  
+  /* Example Gallery */
+  .example-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .example-card {
+    border: 2px solid var(--secondary);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    background: #fff;
+  }
+  
+  .example-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  
+  .example-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 2px dashed var(--secondary);
+  }
+  
+  .example-caption {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Key Takeaways Section with Enhanced Aesthetics */
+  .key-takeaways {
+    margin: 30px 0;
+    background-color: var(--light);
+    border-radius: 12px;
+    padding: 25px 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-left: 5px solid var(--primary);
+    position: relative;
+  }
+
+  .key-takeaways h3 {
+    margin-top: 0;
+    color: var(--secondary);
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+  }
+
+  .key-takeaways h3::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary), transparent);
+    border-radius: 3px;
+  }
+
+  .key-takeaways-list {
+    list-style-position: outside;
+    padding-left: 30px;
+    margin: 0;
+    counter-reset: key-takeaway;
+  }
+
+  .key-takeaways-list li {
+    margin-bottom: 16px;
+    padding: 0 0 0 10px;
+    line-height: 1.6;
+    position: relative;
+    counter-increment: key-takeaway;
+  }
+
+  .key-takeaways-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  .key-takeaways-list li::marker {
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .key-takeaways-list li strong {
+    color: var(--dark);
+    font-weight: 700;
+    font-size: 1.05em;
+  }
+
+  .takeaway-dash {
+    color: var(--primary);
+    font-weight: 500;
+    margin: 0 6px;
+    display: inline-block;
+  }
+
+  .takeaway-description {
+    color: var(--dark);
+    opacity: 0.85;
+  }
+
+  /* Hover effect for the takeaway items */
+  .key-takeaways-list li:hover {
+    transform: translateX(3px);
+    transition: transform 0.2s ease;
+  }
+
+  .key-takeaways-list li:hover strong {
+    color: var(--primary);
+    transition: color 0.2s ease;
+  }
+
+  /* Make the container look like it has a slight fold */
+  .key-takeaways::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.05) 50%);
+    border-top-right-radius: 8px;
+  }
+  
+  /* CAF techniques section */
+  .techniques-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 1.5rem 0;
+  }
+  
+  .technique-card {
+    border: 1px solid var(--secondary);
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .technique-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  }
+  
+  .technique-header {
+    background: var(--secondary-light);
+    padding: 12px 15px;
+    border-bottom: 1px dashed var(--secondary);
+  }
+  
+  .technique-title {
+    margin: 0;
+    color: var(--secondary);
+    font-size: 1.1rem;
+  }
+  
+  .technique-content {
+    padding: 15px;
+    font-size: 0.95rem;
+  }
+  
+  .technique-img {
+    width: 100%;
+    height: 180px;
+    background-color: #f5f5f5;
+    margin-bottom: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    color: #777;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .technique-img.texture-extension {
+    background-image: linear-gradient(to right, #e6c9dc 30%, #f3e6ed 30%);
+  }
+  
+  .technique-img.torn-edge {
+    background-image: radial-gradient(circle at center, #f3e6ed 60%, #e6c9dc 60%);
+  }
+  
+  .technique-img.blended-transition {
+    background-image: linear-gradient(45deg, #e6c9dc, #f3e6ed);
+  }
+  
+  .technique-img.surface-continuity {
+    background-image: linear-gradient(to bottom, #e6c9dc, #f3e6ed);
+  }
+  
+  .technique-img.visual-bridge {
+    background-image: linear-gradient(135deg, #e6c9dc 50%, #f3e6ed 50%);
+  }
+  
+  .ps-technique {
+    background: #f2f9f9;
+    border-left: 3px solid var(--secondary);
+    padding: 12px 15px;
+    margin-top: 12px;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.9rem;
+  }
+  
+  .ps-technique ol {
+    padding-left: 25px;
+    margin-top: 8px;
+  }
+  
+  .ps-technique ol li {
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+  
+  .ps-technique strong {
+    color: var(--secondary);
+  }
+  
+  .technique-card .note {
+    margin-top: 10px;
+    background: #f7f0f5;
+    border-left: 3px solid var(--primary);
+    font-size: 0.85rem;
+  }
+  
+  .before-after {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .before-after > div {
+    flex: 1;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 0.85rem;
+    text-align: center;
+    background: #f9f9f9;
+  }
+
+  /* Before-After Slider Styles */
+  .technique-demo {
+    margin-bottom: 15px;
+  }
+
+  .before-after-slider {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+
+  .before-image, .after-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .after-image {
+    width: 50%;
+    overflow: hidden;
+    border-right: 2px solid white;
+  }
+
+  .before-image img, .after-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .slider-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    cursor: ew-resize;
+    z-index: 10;
+  }
+
+  .slider-handle::after {
+    content: "⟷";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--secondary);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  .image-label {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* Process Steps Styles */
+  .process-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    gap: 10px;
+  }
+
+  .step {
+    flex: 0 0 100px;
+    text-align: center;
+    position: relative;
+  }
+
+  .step-number {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    background: var(--primary);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .step img {
+    width: 100%;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+  }
+
+  .step p {
+    margin: 5px 0 0;
+    font-size: 0.8rem;
+    color: var(--dark);
+  }
+  
+  /* Gallery Grid Styles */
+  .inspiration-gallery {
+    margin: 30px 0;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 20px 0 30px;
+  }
+
+  .gallery-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    height: 0;
+    padding-bottom: 75%; /* 4:3 aspect ratio */
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+
+  .gallery-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.3s;
+  }
+
+  .gallery-item:hover img {
+    filter: brightness(0.8);
+  }
+
+  .overlay-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    color: white;
+  }
+
+  .gallery-item:hover .overlay-info {
+    transform: translateY(0);
+  }
+
+  .overlay-info h4 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+  }
+
+  .overlay-info p {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    opacity: 0.9;
+  }
+
+  .techniques-used {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .techniques-used li {
+    background: rgba(255,255,255,0.2);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* Artist Spotlight Styles */
+  .artist-spotlight {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+    border-left: 4px solid var(--primary);
+  }
+
+  .collage-process .process-steps {
+    margin-top: 15px;
+  }
+
+  .collage-reference {
+    margin-top: 15px;
+    padding: 10px;
+    background: var(--light);
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+  
+  /* Visual Guide Elements */
+  .visual-guide {
+    display: flex;
+    gap: 12px;
+    margin: 1rem 0;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+  
+  .guide-step {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    position: relative;
+  }
+  
+  .guide-step::after {
+    content: "→";
+    position: absolute;
+    right: -18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: var(--secondary);
+    z-index: 1;
+  }
+  
+  .guide-step:last-child::after {
+    display: none;
+  }
+  
+  .guide-step h4 {
+    color: var(--secondary);
+    margin-bottom: 8px;
+    border-bottom: 1px dashed var(--secondary);
+    padding-bottom: 5px;
+  }
+  
+  /* Keyboard Shortcuts */
+  .keyboard-shortcut {
+    display: inline-block;
+    padding: 3px 8px;
+    background: #f2f2f2;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: "Monaco", "Menlo", monospace;
+    font-size: 0.9em;
+    box-shadow: 0 2px 0 #ccc;
+    margin: 0 2px;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    color: #777;
+    font-size: 0.85rem;
+    border-top: 1px dashed var(--primary);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Visual Storytelling Through Dynamic Layouts</h1>
+  
+  <p>Learn to create compositions that tell your creative journey by arranging research, textures, and development work effectively.</p>
+  
+  <div class="note">
+    <strong>Key Focus:</strong> Using varied block sizes and strategic placement to highlight relationships between primary research, texture details, and contextual elements.
+  </div>
+  
+  <!-- MODULE 1: STORYTELLING THROUGH LAYOUT -->
+  <div class="module">
+    <div class="module-header">
+      <h2 class="module-title">Layout as Visual Narrative</h2>
+    </div>
+    <div class="module-content">
+      <p>A powerful layout guides viewers through your creative story. Varying block sizes and thoughtful placement create visual interest and establish connections between elements.</p>
+      
+      <p>Consider these narrative patterns when designing your layouts:</p>
+      
+      <div class="story-flow">
+        <div class="flow-step">Starting Point<br><small>Initial Research</small></div>
+        <div class="flow-step">Material Exploration<br><small>Texture & Process</small></div>
+        <div class="flow-step">Context<br><small>Secondary Research</small></div>
+        <div class="flow-step">Development<br><small>Iterations & Tests</small></div>
+        <div class="flow-step">Key Outcome<br><small>Final Direction</small></div>
+      </div>
+      
+      <p>Your layout should visually reinforce these connections. Related elements can be:</p>
+      <ul>
+        <li>Positioned adjacent to one another</li>
+        <li>Connected with similar colors or textures</li>
+        <li>Aligned along the same axis</li>
+        <li>Framed with complementary borders or backgrounds</li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- MODULE 2: DYNAMIC GRID SYSTEM -->
+  <div class="module">
+    <div class="module-header">
+      <h2 class="module-title">Creating Dynamic Grid Compositions</h2>
+    </div>
+    <div class="module-content">
+      <p>The grid below demonstrates how varying block sizes creates visual hierarchy. The interactive tools let you explore different arrangements to see how they affect your visual story.</p>
+      
+      <div class="dynamic-grid-container">
+        <div class="dynamic-grid" id="dynamicGrid">
+          <!-- Grid items will be generated by JavaScript -->
+        </div>
+      </div>
+      
+      <div class="grid-controls">
+        <button class="btn btn-primary" id="randomizeBtn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.5 2L10.5 5M13.5 2L10.5 2M13.5 2L13.5 5M2.5 8L13.5 8M2.5 14L5.5 11M2.5 14L5.5 14M2.5 14L2.5 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Randomize Layout
+        </button>
+        <button class="btn" id="focusPrimaryBtn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="8" cy="8" r="2" fill="currentColor"/>
+          </svg>
+          Focus on Primary Research
+        </button>
+        <button class="btn" id="balanceBtn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="3" width="4" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="10" y="3" width="4" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          Balance Components
+        </button>
+      </div>
+      
+      <div class="note">
+        <strong>Observe:</strong> Notice how changing block sizes impacts which elements draw attention first. Large blocks create focal points, while smaller blocks provide supporting details.
+      </div>
+    </div>
+  </div>
+  
+  <!-- MODULE 3: ANALYZING EFFECTIVE LAYOUTS -->
+  <div class="module">
+    <div class="module-header">
+      <h2 class="module-title">Analyzing Effective Layouts</h2>
+    </div>
+    <div class="module-content">
+      <div class="example-gallery">
+        <div class="example-card">
+          <img src="https://via.placeholder.com/600x400/f5f5f5/333333?text=Example+1" alt="Layout example">
+          <div class="example-caption">
+            <strong>Primary Research Focus</strong><br>
+            The largest block features key primary research, with smaller supporting texture details. Red vertical elements connect different research components.
+          </div>
+        </div>
+        <div class="example-card">
+          <img src="https://via.placeholder.com/600x400/f5f5f5/333333?text=Example+2" alt="Layout example">
+          <div class="example-caption">
+            <strong>Texture & Context Balance</strong><br>
+            Translucent overlays show relationships between material textures and research context. Varied block sizes create rhythm across the page.
+          </div>
+        </div>
+      </div>
+      
+      <div class="key-takeaways">
+        <h3>Key Takeaways:</h3>
+        <ol class="key-takeaways-list">
+          <li><strong>Size = Importance</strong> <span class="takeaway-dash">—</span> <span class="takeaway-description">Larger blocks naturally draw more attention</span></li>
+          <li><strong>Position Matters</strong> <span class="takeaway-dash">—</span> <span class="takeaway-description">Upper left is often seen first in Western reading patterns</span></li>
+          <li><strong>Visual Connections</strong> <span class="takeaway-dash">—</span> <span class="takeaway-description">Use textures, colors, or lines to connect related elements</span></li>
+          <li><strong>Breathing Room</strong> <span class="takeaway-dash">—</span> <span class="takeaway-description">Include some negative space to prevent visual overload</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  
+  <!-- CREATIVE CONTENT-AWARE FILL TECHNIQUES -->
+  <div class="module">
+    <div class="module-header">
+      <h2 class="module-title">Creative Content-Aware Fill Techniques for Layouts</h2>
+    </div>
+    <div class="module-content">
+      <p>Content-Aware Fill (CAF) is more than just a tool to remove unwanted elements—it helps blend research and texture seamlessly in your layouts:</p>
+      
+      <div class="inspiration-gallery">
+        <h3>Collage Art Inspiration</h3>
+        <p>These examples show how artists blend analog and digital elements to create compelling visual narratives.</p>
+        
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="grid-collage-architecture.jpg" alt="Architectural grid collage with data visualization elements">
+            <div class="overlay-info">
+              <h4>Grid Systems & Data Integration</h4>
+              <p>Grid structure organizes photographic elements while incorporating data visualization. Images are segmented to create narrative flow across the composition.</p>
+              <ul class="techniques-used">
+                <li>Content-aware scaling</li>
+                <li>Grid alignment</li>
+                <li>Texture blending</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="gallery-item">
+            <img src="torn-edge-landscape.jpg" alt="Landscape collage with torn paper edges">
+            <div class="overlay-info">
+              <h4>Physical/Digital Material Bridging</h4>
+              <p>Torn edges create organic transitions between photographic elements. The burnt paper effect combines physical manipulation and digital enhancement.</p>
+              <ul class="techniques-used">
+                <li>Torn-edge repair</li>
+                <li>Surface continuity</li>
+                <li>Material texturing</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="gallery-item">
+            <img src="overlapping-materials-collage.jpg" alt="Mixed media collage with overlapping materials">
+            <div class="overlay-info">
+              <h4>Material Transparency & Layering</h4>
+              <p>Masterful handling of transparent and semi-transparent materials. Both physical overlapping and digital blending create subtle interactions between elements.</p>
+              <ul class="techniques-used">
+                <li>Transparency adjustments</li>
+                <li>Layer blending modes</li>
+                <li>Visual bridges</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="gallery-item">
+            <img src="madrid-architectural-collage.jpg" alt="Madrid architectural abstract collage">
+            <div class="overlay-info">
+              <h4>Architectural Abstraction</h4>
+              <p>Minimal architectural collage with selective color and geometric elements. Limited palette creates visual cohesion despite varied source materials.</p>
+              <ul class="techniques-used">
+                <li>Selective color application</li>
+                <li>Geometric alignment</li>
+                <li>Texture matching</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="artist-spotlight">
+          <h4>Artist Spotlight: Rodrigo de Filippis</h4>
+          <p>Contemporary collage artist Rodrigo de Filippis combines precise digital manipulation with traditional cut-and-paste aesthetics, creating seamless transitions between physical and digital elements.</p>
+          
+          <div class="technique-demo collage-process">
+            <h5>Digital Sketchbook Process</h5>
+            <div class="process-steps">
+              <div class="step">
+                <div class="step-number">1</div>
+                <img src="collage-process-1.jpg" alt="Material gathering">
+                <p>Gather source materials</p>
+              </div>
+              <div class="step">
+                <div class="step-number">2</div>
+                <img src="collage-process-2.jpg" alt="Digital scanning">
+                <p>Digitize physical materials</p>
+              </div>
+              <div class="step">
+                <div class="step-number">3</div>
+                <img src="collage-process-3.jpg" alt="Digital composition">
+                <p>Compose and blend digitally</p>
+              </div>
+              <div class="step">
+                <div class="step-number">4</div>
+                <img src="collage-process-4.jpg" alt="Final output">
+                <p>Refine and output</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="techniques-container">
+        <div class="technique-card">
+          <div class="technique-header">
+            <h3 class="technique-title">Texture Extension</h3>
+          </div>
+          <div class="technique-content">
+            <div class="technique-demo">
+              <div class="before-after-slider">
+                <div class="before-image">
+                  <img src="texture-extension-before.jpg" alt="Before texture extension">
+                  <span class="image-label">Original Sample</span>
+                </div>
+                <div class="after-image">
+                  <img src="texture-extension-after.jpg" alt="After texture extension">
+                  <span class="image-label">Extended Result</span>
+                </div>
+                <div class="slider-handle"></div>
+              </div>
+              
+              <div class="process-steps">
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <img src="texture-step1.jpg" alt="Select texture">
+                  <p>Select texture</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <img src="texture-step2.jpg" alt="Enlarge canvas">
+                  <p>Extend canvas</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <img src="texture-step3.jpg" alt="Apply Content-Aware Fill">
+                  <p>Apply CAF</p>
+                </div>
+              </div>
+            </div>
+            
+            <p>Grow handmade textures to fill layout cells without obvious repetition. Creates a "stretched material" effect instead of a tiled pattern.</p>
+            
+            <div class="ps-technique">
+              <strong>Photoshop Technique:</strong>
+              <ol>
+                <li>Select texture with Rectangular Marquee tool</li>
+                <li>Copy to new layer (<span class="keyboard-shortcut">Ctrl/Cmd+J</span>)</li>
+                <li>Extend canvas (<span class="keyboard-shortcut">Image → Canvas Size</span>)</li>
+                <li>Select empty area with Magic Wand</li>
+                <li>Use <span class="keyboard-shortcut">Edit → Content-Aware Fill</span></li>
+                <li>Paint over sampling areas</li>
+                <li>Try Scale 100-150% for natural extension</li>
+                <li>Set Color Adaptation to "High" for better blending</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        
+        <div class="technique-card">
+          <div class="technique-header">
+            <h3 class="technique-title">Torn-Edge Repair</h3>
+          </div>
+          <div class="technique-content">
+            <div class="technique-demo">
+              <div class="before-after-slider">
+                <div class="before-image">
+                  <img src="torn-edge-before.jpg" alt="Before torn edge repair">
+                  <span class="image-label">Original Torn Edge</span>
+                </div>
+                <div class="after-image">
+                  <img src="torn-edge-after.jpg" alt="After torn edge repair">
+                  <span class="image-label">Repaired Edge</span>
+                </div>
+                <div class="slider-handle"></div>
+              </div>
+              
+              <div class="process-steps">
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <img src="torn-edge-step1.jpg" alt="Select edge">
+                  <p>Select torn area</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <img src="torn-edge-step2.jpg" alt="Create mask">
+                  <p>Create mask</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <img src="torn-edge-step3.jpg" alt="Apply content-aware fill">
+                  <p>Apply CAF</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">4</div>
+                  <img src="torn-edge-step4.jpg" alt="Refine edges">
+                  <p>Refine edges</p>
+                </div>
+              </div>
+            </div>
+            
+            <p>Fill gaps where collaged pieces meet, maintaining paper grain direction. Adjust sampling to match fiber patterns.</p>
+            
+            <div class="ps-technique">
+              <strong>Photoshop Technique:</strong>
+              <ol>
+                <li>Place collage elements on separate layers</li>
+                <li>Create new layer between them</li>
+                <li>Select gap with Lasso tool</li>
+                <li>Use <span class="keyboard-shortcut">Edit → Content-Aware Fill</span></li>
+                <li>Select areas with matching grain direction</li>
+                <li>Enable "Mirror" for symmetrical textures</li>
+                <li>Set Structure to 15-25 to maintain grain patterns</li>
+                <li>Use Default/Low Color Adaptation for paper fibers</li>
+              </ol>
+            </div>
+            
+            <div class="note">
+              <strong>Pro Tip:</strong> For mixed-media collages, create separate CAF layers for each material type, then blend with masks.
+            </div>
+          </div>
+        </div>
+        
+        <div class="technique-card">
+          <div class="technique-header">
+            <h3 class="technique-title">Blended Transitions</h3>
+          </div>
+          <div class="technique-content">
+            <div class="technique-demo">
+              <div class="before-after-slider">
+                <div class="before-image">
+                  <img src="blended-before.jpg" alt="Before blended transition">
+                  <span class="image-label">Separate Elements</span>
+                </div>
+                <div class="after-image">
+                  <img src="blended-after.jpg" alt="After blended transition">
+                  <span class="image-label">Blended Result</span>
+                </div>
+                <div class="slider-handle"></div>
+              </div>
+              
+              <div class="process-steps">
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <img src="blend-step1.jpg" alt="Layer position">
+                  <p>Position layers</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <img src="blend-step2.jpg" alt="Create mask">
+                  <p>Create mask</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <img src="blend-step3.jpg" alt="Apply CAF">
+                  <p>Apply CAF</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">4</div>
+                  <img src="blend-step4.jpg" alt="Refine blend">
+                  <p>Refine blend</p>
+                </div>
+              </div>
+            </div>
+            
+            <p>Combine CAF with soft Eraser or Layer Mask to create subtle transitions while preserving handmade quality.</p>
+            
+            <div class="ps-technique">
+              <strong>Photoshop Technique:</strong>
+              <ol>
+                <li>Position elements on separate layers</li>
+                <li>Create layer mask on top layer</li>
+                <li>Paint black with soft brush (30-50% hardness) for gradual fade</li>
+                <li>Select gap area with Lasso tool</li>
+                <li>Create new layer and use <span class="keyboard-shortcut">Edit → Content-Aware Fill</span></li>
+                <li>Sample from both elements you're blending</li>
+                <li>Output to new layer for better control</li>
+                <li>Use layer mask to refine transition</li>
+              </ol>
+            </div>
+            
+            <div class="note">
+              <strong>Alternative:</strong> Use Mixer Brush with "Sample All Layers" to manually blend after applying CAF.
+            </div>
+          </div>
+        </div>
+        
+        <div class="technique-card">
+          <div class="technique-header">
+            <h3 class="technique-title">Surface Continuity</h3>
+          </div>
+          <div class="technique-content">
+            <div class="technique-demo">
+              <div class="before-after-slider">
+                <div class="before-image">
+                  <img src="surface-before.jpg" alt="Before surface continuity">
+                  <span class="image-label">Uneven Surface</span>
+                </div>
+                <div class="after-image">
+                  <img src="surface-after.jpg" alt="After surface continuity">
+                  <span class="image-label">Consistent Surface</span>
+                </div>
+                <div class="slider-handle"></div>
+              </div>
+              
+              <div class="process-steps">
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <img src="surface-step1.jpg" alt="Duplicate layer">
+                  <p>Duplicate layer</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <img src="surface-step2.jpg" alt="Select area">
+                  <p>Select area</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <img src="surface-step3.jpg" alt="Apply CAF">
+                  <p>Apply CAF</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">4</div>
+                  <img src="surface-step4.jpg" alt="Adjust opacity">
+                  <p>Adjust opacity</p>
+                </div>
+              </div>
+            </div>
+            
+            <p>Even out uneven lighting on scanned materials while preserving handmade marks. Creates professional backgrounds for quotes.</p>
+            
+            <div class="ps-technique">
+              <strong>Photoshop Technique:</strong>
+              <ol>
+                <li>Duplicate scanned layer (<span class="keyboard-shortcut">Ctrl/Cmd+J</span>)</li>
+                <li>Enhance contrast with Curves (<span class="keyboard-shortcut">Ctrl/Cmd+M</span>)</li>
+                <li>Select uneven areas with Quick Selection</li>
+                <li>Feather slightly (5-10px)</li>
+                <li>Use <span class="keyboard-shortcut">Edit → Content-Aware Fill</span></li>
+                <li>Sample only from evenly-lit areas</li>
+                <li>Lower Structure value (15-30) to maintain texture</li>
+                <li>Output to new layer</li>
+                <li>Adjust opacity (60-80%) to let original texture show through</li>
+              </ol>
+            </div>
+            
+            <div class="note">
+              <strong>For Text Areas:</strong> Apply subtle Gaussian Blur (2-3px) before placing text for better legibility.
+            </div>
+          </div>
+        </div>
+        
+        <div class="technique-card">
+          <div class="technique-header">
+            <h3 class="technique-title">Visual Bridges</h3>
+          </div>
+          <div class="technique-content">
+            <div class="technique-demo">
+              <div class="before-after-slider">
+                <div class="before-image">
+                  <img src="bridge-before.jpg" alt="Before visual bridge">
+                  <span class="image-label">Separate Elements</span>
+                </div>
+                <div class="after-image">
+                  <img src="bridge-after.jpg" alt="After visual bridge">
+                  <span class="image-label">Connected Elements</span>
+                </div>
+                <div class="slider-handle"></div>
+              </div>
+              
+              <div class="process-steps">
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <img src="bridge-step1.jpg" alt="Position elements">
+                  <p>Position elements</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <img src="bridge-step2.jpg" alt="Create path">
+                  <p>Create path</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <img src="bridge-step3.jpg" alt="Apply CAF">
+                  <p>Apply CAF</p>
+                </div>
+                <div class="step">
+                  <div class="step-number">4</div>
+                  <img src="bridge-step4.jpg" alt="Blend transition">
+                  <p>Blend transition</p>
+                </div>
+              </div>
+            </div>
+            
+            <p>Merge analog and digital elements by extending hand-painted textures across photographs. Blurs boundaries between primary and secondary research.</p>
+            
+            <div class="ps-technique">
+              <strong>Photoshop Technique:</strong>
+              <ol>
+                <li>Position texture and photo on separate layers</li>
+                <li>Create new layer between them</li>
+                <li>Draw path with Lasso tool where texture should extend</li>
+                <li>Use <span class="keyboard-shortcut">Edit → Content-Aware Fill</span></li>
+                <li>Sample from texture areas</li>
+                <li>Set Rotation Adaptation to 4 for natural blending</li>
+                <li>Add layer mask with opacity gradient (100% to 0%)</li>
+                <li>Try Multiply, Overlay, or Soft Light blend mode</li>
+                <li>Reduce opacity to 40-70%</li>
+              </ol>
+            </div>
+            
+            <div class="note">
+              <strong>Advanced:</strong> Create multiple CAF layers with different sampling areas, then combine with different blend modes.
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <h3>Applying CAF Techniques in Your Layouts</h3>
+      
+      <div class="visual-guide">
+        <div class="guide-step">
+          <h4>Plan Your Layout</h4>
+          <p>Create a grid with varied block sizes based on content hierarchy</p>
+        </div>
+        <div class="guide-step">
+          <h4>Position Key Elements</h4>
+          <p>Place primary research & textures in their blocks</p>
+        </div>
+        <div class="guide-step">
+          <h4>Apply CAF Techniques</h4>
+          <p>Create seamless transitions between blocks</p>
+        </div>
+        <div class="guide-step">
+          <h4>Refine & Integrate</h4>
+          <p>Add secondary elements and visual connections</p>
+        </div>
+      </div>
+      
+      <div class="note">
+        <strong>Pro Tip:</strong> Use high-resolution scans (minimum 600 DPI) for better CAF results and more natural extensions.
+      </div>
+    </div>
+  </div>
+  
+  <!-- MODULE 4: PRACTICAL APPLICATION -->
+  <div class="module">
+    <div class="module-header">
+      <h2 class="module-title">Practical Application in Photoshop</h2>
+    </div>
+    <div class="module-content">
+      <div class="content-columns">
+        <div>
+          <h3>Setting Up Your Layout:</h3>
+          <ol>
+            <li>Create a new document (A3, 300dpi)</li>
+            <li>Enable rulers (<span class="keyboard-shortcut">Ctrl/Cmd+R</span>) and grid (<span class="keyboard-shortcut">View → Show → Grid</span>)</li>
+            <li>Create guides for varied block sizes</li>
+            <li>Consider your story flow and focal points</li>
+          </ol>
+          
+          <div class="note">
+            Vary block sizes to create visual hierarchy and guide viewer attention.
+          </div>
+        </div>
+        <div>
+          <h3>Populating Your Layout:</h3>
+          <ol>
+            <li><strong>Primary Research:</strong> Your photographs, sketches, material samples (in larger blocks)</li>
+            <li><strong>Texture Details:</strong> Close-up views of materials and surfaces</li>
+            <li><strong>Context:</strong> Secondary research, influences, quotes (in smaller blocks)</li>
+            <li><strong>Development:</strong> Process shots showing evolution of ideas</li>
+          </ol>
+          
+          <div class="note">
+            Use CAF techniques to blend elements organically and create connections that reflect your creative journey.
+          </div>
+        </div>
+      </div>
+      
+      <h3>Complete Workflow for Seamless Content Blending</h3>
+      <ol>
+        <li><strong>Scan at High Resolution</strong> — 600dpi minimum</li>
+        <li><strong>Create Smart Objects</strong> — For editability (<span class="keyboard-shortcut">Right-click → Convert to Smart Object</span>)</li>
+        <li><strong>Position Primary Elements</strong> — In focal blocks</li>
+        <li><strong>Apply CAF for Extensions</strong> — Grow textures where needed</li>
+        <li><strong>Layer Mask Transitions</strong> — Blend between elements</li>
+        <li><strong>Use Adjustment Layers</strong> — Harmonize tones</li>
+        <li><strong>Add Secondary Content</strong> — Supporting research and context</li>
+        <li><strong>Create Visual Links</strong> — Connect related ideas</li>
+        <li><strong>Final Refinements</strong> — Add subtle depth</li>
+      </ol>
+      
+      <div class="note">
+        <strong>Organization Tip:</strong> Create layer groups (<span class="keyboard-shortcut">Ctrl/Cmd+G</span>) for different sections: "Primary Research," "Texture Details," "Context," etc.
+      </div>
+    </div>
+  </div>
+  
+  <!-- MODULE 5: QUICK TIPS -->
+  <div class="module">
+    <div class="module-header">
+      <h2 class="module-title">Quick Tips for Effective Storytelling</h2>
+    </div>
+    <div class="module-content">
+      <ul>
+        <li><strong>Start Strong</strong> — Place your most compelling research in a large focal block</li>
+        <li><strong>Create Flow</strong> — Arrange from large to small to guide viewers through your process</li>
+        <li><strong>Texture as Background</strong> — Extend textures behind text for unity</li>
+        <li><strong>Supporting Elements</strong> — Keep quotes and context in smaller blocks</li>
+        <li><strong>Breathing Room</strong> — Allow some areas to remain open</li>
+        <li><strong>Consistent Treatment</strong> — Use similar borders for related content</li>
+        <li><strong>Visual Bridges</strong> — Connect different research phases</li>
+        <li><strong>Layer with Purpose</strong> — Consider how overlaps create new relationships</li>
+        <li><strong>Non-Destructive Editing</strong> — Use duplicate layers and masks</li>
+        <li><strong>Save Versions</strong> — Create multiple variations to explore different approaches</li>
+      </ul>
+      
+      <div class="note">
+        <strong>Final Reminder:</strong> Your layout should feel like a cohesive journey, not a collection of separate elements. Let CAF techniques create natural pathways between components.
+      </div>
+    </div>
+  </div>
+  
+  <footer>© 2025 Visual Storytelling & Layout Resource | For Creative Process Documentation</footer>
+</div>
+
+<script>
+// DYNAMIC GRID GENERATOR
+const gridItems = [
+  { content: 'Primary Research Photo', type: 'primary', size: 'large' },
+  { content: 'Material Texture Detail', type: 'texture', size: 'medium' },
+  { content: 'Process Development', type: 'primary', size: 'medium' },
+  { content: 'Artist Reference', type: 'secondary', size: 'small' },
+  { content: 'Key Visual Focus', type: 'primary', size: 'large' },
+  { content: '"Design is storytelling in a physical form"', type: 'quote', size: 'small' },
+  { content: 'Texture Analysis', type: 'texture', size: 'small' },
+  { content: 'Material Application', type: 'primary', size: 'medium' }
+];
+
+// Grid sizing options
+const gridSizes = {
+  small: { w: 1, h: 1 },
+  medium: { w: 2, h: 2 },
+  large: { w: 3, h: 3 },
+  xlarge: { w: 3, h: 4 }
+};
+
+// Initialize the grid
+function initializeGrid() {
+  const grid = document.getElementById('dynamicGrid');
+  grid.innerHTML = '';
+  
+  // Helper to check if a cell is available
+  const occupiedCells = {};
+  function isCellOccupied(col, row, w, h) {
+    for (let i = 0; i < w; i++) {
+      for (let j = 0; j < h; j++) {
+        const key = `${col+i},${row+j}`;
+        if (occupiedCells[key]) return true;
+      }
+    }
+    return false;
+  }
+  
+  function markCellsOccupied(col, row, w, h) {
+    for (let i = 0; i < w; i++) {
+      for (let j = 0; j < h; j++) {
+        const key = `${col+i},${row+j}`;
+        occupiedCells[key] = true;
+      }
+    }
+  }
+  
+  // Shuffle items for randomness
+  const shuffledItems = [...gridItems].sort(() => Math.random() - 0.5);
+  
+  // Place items in the grid
+  shuffledItems.forEach(item => {
+    const { w, h } = gridSizes[item.size];
+    
+    // Try to find an available position
+    let positioned = false;
+    let attempts = 0;
+    
+    while (!positioned && attempts < 100) {
+      // More constrained for larger items
+      const maxCol = 7 - w;
+      const maxRow = 7 - h;
+      
+      const col = Math.floor(Math.random() * maxCol);
+      const row = Math.floor(Math.random() * maxRow);
+      
+      if (!isCellOccupied(col, row, w, h)) {
+        // Create and position the item
+        const gridItem = document.createElement('div');
+        gridItem.className = `grid-item ${item.type}`;
+        gridItem.textContent = item.content;
+        gridItem.style.gridColumn = `${col + 1} / span ${w}`;
+        gridItem.style.gridRow = `${row + 1} / span ${h}`;
+        
+        // Add to grid
+        grid.appendChild(gridItem);
+        markCellsOccupied(col, row, w, h);
+        positioned = true;
+      }
+      
+      attempts++;
+    }
+  });
+  
+  // Apply initial animation
+  const allItems = document.querySelectorAll('.grid-item');
+  allItems.forEach((item, index) => {
+    item.style.opacity = 0;
+    item.style.transform = 'scale(0.8)';
+    
+    setTimeout(() => {
+      item.style.transition = 'all 0.4s ease';
+      item.style.opacity = 1;
+      item.style.transform = 'scale(1)';
+    }, index * 80);
+  });
+}
+
+// Randomize button
+document.getElementById('randomizeBtn').addEventListener('click', function() {
+  initializeGrid();
+});
+
+// Focus on primary research
+document.getElementById('focusPrimaryBtn').addEventListener('click', function() {
+  // Make primary elements larger, others smaller
+  const primaryItems = document.querySelectorAll('.grid-item.primary');
+  const otherItems = document.querySelectorAll('.grid-item:not(.primary)');
+  
+  primaryItems.forEach(item => {
+    item.style.transform = 'scale(1.05)';
+    item.style.zIndex = '2';
+    item.style.boxShadow = '0 8px 24px rgba(234, 55, 163, 0.15)';
+    item.style.borderWidth = '2px';
+  });
+  
+  otherItems.forEach(item => {
+    item.style.opacity = '0.7';
+    item.style.transform = 'scale(0.95)';
+    item.style.zIndex = '1';
+  });
+  
+  setTimeout(() => {
+    document.querySelectorAll('.grid-item').forEach(item => {
+      item.style.transform = 'scale(1)';
+      item.style.opacity = '1';
+      item.style.zIndex = 'auto';
+      item.style.boxShadow = '0 2px 8px rgba(0,0,0,0.05)';
+      item.style.borderWidth = '1px';
+    });
+  }, 2000);
+});
+
+// Balance components
+document.getElementById('balanceBtn').addEventListener('click', function() {
+  const grid = document.getElementById('dynamicGrid');
+  
+  // First, create a more balanced layout with alternating sizes
+  grid.style.gridTemplateColumns = 'repeat(4, 1fr)';
+  grid.style.gridTemplateRows = 'repeat(4, 80px)';
+  
+  grid.innerHTML = '';
+  
+  const balancedLayout = [
+    { content: 'Primary Research Photo', type: 'primary', col: 1, row: 1, w: 2, h: 2 },
+    { content: 'Material Texture', type: 'texture', col: 3, row: 1, w: 2, h: 1 },
+    { content: '"Design is storytelling"', type: 'quote', col: 3, row: 2, w: 2, h: 1 },
+    { content: 'Secondary Research', type: 'secondary', col: 1, row: 3, w: 1, h: 2 },
+    { content: 'Process Development', type: 'primary', col: 2, row: 3, w: 2, h: 2 },
+    { content: 'Material Detail', type: 'texture', col: 4, row: 3, w: 1, h: 2 }
+  ];
+  
+  balancedLayout.forEach(item => {
+    const gridItem = document.createElement('div');
+    gridItem.className = `grid-item ${item.type}`;
+    gridItem.textContent = item.content;
+    gridItem.style.gridColumn = `${item.col} / span ${item.w}`;
+    gridItem.style.gridRow = `${item.row} / span ${item.h}`;
+    grid.appendChild(gridItem);
+    
+    // Entrance animation
+    gridItem.style.opacity = 0;
+    setTimeout(() => {
+      gridItem.style.transition = 'opacity 0.5s ease';
+      gridItem.style.opacity = 1;
+    }, 100);
+  });
+});
+
+// Initialize grid on page load
+document.addEventListener('DOMContentLoaded', initializeGrid);
+
+// BEFORE-AFTER SLIDER FUNCTIONALITY
+document.addEventListener('DOMContentLoaded', function() {
+  const sliders = document.querySelectorAll('.before-after-slider');
+  
+  sliders.forEach(slider => {
+    const handle = slider.querySelector('.slider-handle');
+    const afterImage = slider.querySelector('.after-image');
+    let isResizing = false;
+    
+    // Mouse events
+    handle.addEventListener('mousedown', startResize);
+    window.addEventListener('mousemove', resize);
+    window.addEventListener('mouseup', stopResize);
+    
+    // Touch events for mobile
+    handle.addEventListener('touchstart', startResize);
+    window.addEventListener('touchmove', resize);
+    window.addEventListener('touchend', stopResize);
+    
+    function startResize(e) {
+      e.preventDefault();
+      isResizing = true;
+    }
+    
+    function resize(e) {
+      if (!isResizing) return;
+      
+      let clientX;
+      if (e.type === 'touchmove') {
+        clientX = e.touches[0].clientX;
+      } else {
+        clientX = e.clientX;
+      }
+      
+      const sliderRect = slider.getBoundingClientRect();
+      const position = (clientX - sliderRect.left) / sliderRect.width * 100;
+      
+      // Constrain position between 10% and 90%
+      const constrainedPosition = Math.min(Math.max(position, 10), 90);
+      
+      // Update position
+      afterImage.style.width = `${constrainedPosition}%`;
+      handle.style.left = `${constrainedPosition}%`;
+    }
+    
+    function stopResize() {
+      isResizing = false;
+    }
+  });
+});
+</script>
+</body>
+</html>
