@@ -484,14 +484,6 @@
     background-image: linear-gradient(45deg, #e6c9dc, #f3e6ed);
   }
   
-  .technique-img.surface-continuity {
-    background-image: linear-gradient(to bottom, #e6c9dc, #f3e6ed);
-  }
-  
-  .technique-img.visual-bridge {
-    background-image: linear-gradient(135deg, #e6c9dc 50%, #f3e6ed 50%);
-  }
-  
   .ps-technique {
     background: #f2f9f9;
     border-left: 3px solid var(--secondary);
@@ -751,25 +743,12 @@
     font-weight: 600;
   }
 
-  /* Artist Spotlight Styles */
   .artist-spotlight {
     background: var(--light);
     border-radius: 8px;
     padding: 20px;
     margin-top: 30px;
     border-left: 4px solid var(--primary);
-  }
-
-  .collage-process .process-steps {
-    margin-top: 15px;
-  }
-
-  .collage-reference {
-    margin-top: 15px;
-    padding: 10px;
-    background: var(--light);
-    border-radius: 6px;
-    font-size: 0.9rem;
   }
   
   /* Visual Guide Elements */
@@ -1023,32 +1002,6 @@
         <div class="artist-spotlight">
           <h4>Artist Spotlight: Rodrigo de Filippis</h4>
           <p>Contemporary collage artist Rodrigo de Filippis combines precise digital manipulation with traditional cut-and-paste aesthetics, creating seamless transitions between physical and digital elements.</p>
-          
-          <div class="technique-demo collage-process">
-            <h5>Digital Sketchbook Process</h5>
-            <div class="process-steps">
-              <div class="step">
-                <div class="step-number">1</div>
-                <img src="collage-process-1.jpg" alt="Material gathering">
-                <p>Gather source materials</p>
-              </div>
-              <div class="step">
-                <div class="step-number">2</div>
-                <img src="collage-process-2.jpg" alt="Digital scanning">
-                <p>Digitize physical materials</p>
-              </div>
-              <div class="step">
-                <div class="step-number">3</div>
-                <img src="collage-process-3.jpg" alt="Digital composition">
-                <p>Compose and blend digitally</p>
-              </div>
-              <div class="step">
-                <div class="step-number">4</div>
-                <img src="collage-process-4.jpg" alt="Final output">
-                <p>Refine and output</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       
@@ -1125,29 +1078,6 @@
                 </div>
                 <div class="slider-handle"></div>
               </div>
-              
-              <div class="process-steps">
-                <div class="step">
-                  <div class="step-number">1</div>
-                  <img src="torn-edge-step1.jpg" alt="Select edge">
-                  <p>Select torn area</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">2</div>
-                  <img src="torn-edge-step2.jpg" alt="Create mask">
-                  <p>Create mask</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">3</div>
-                  <img src="torn-edge-step3.jpg" alt="Apply content-aware fill">
-                  <p>Apply CAF</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">4</div>
-                  <img src="torn-edge-step4.jpg" alt="Refine edges">
-                  <p>Refine edges</p>
-                </div>
-              </div>
             </div>
             
             <p>Fill gaps where collaged pieces meet, maintaining paper grain direction. Adjust sampling to match fiber patterns.</p>
@@ -1189,29 +1119,6 @@
                 </div>
                 <div class="slider-handle"></div>
               </div>
-              
-              <div class="process-steps">
-                <div class="step">
-                  <div class="step-number">1</div>
-                  <img src="blend-step1.jpg" alt="Layer position">
-                  <p>Position layers</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">2</div>
-                  <img src="blend-step2.jpg" alt="Create mask">
-                  <p>Create mask</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">3</div>
-                  <img src="blend-step3.jpg" alt="Apply CAF">
-                  <p>Apply CAF</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">4</div>
-                  <img src="blend-step4.jpg" alt="Refine blend">
-                  <p>Refine blend</p>
-                </div>
-              </div>
             </div>
             
             <p>Combine CAF with soft Eraser or Layer Mask to create subtle transitions while preserving handmade quality.</p>
@@ -1232,136 +1139,6 @@
             
             <div class="note">
               <strong>Alternative:</strong> Use Mixer Brush with "Sample All Layers" to manually blend after applying CAF.
-            </div>
-          </div>
-        </div>
-        
-        <div class="technique-card">
-          <div class="technique-header">
-            <h3 class="technique-title">Surface Continuity</h3>
-          </div>
-          <div class="technique-content">
-            <div class="technique-demo">
-              <div class="before-after-slider">
-                <div class="before-image">
-                  <img src="surface-before.jpg" alt="Before surface continuity">
-                  <span class="image-label">Uneven Surface</span>
-                </div>
-                <div class="after-image">
-                  <img src="surface-after.jpg" alt="After surface continuity">
-                  <span class="image-label">Consistent Surface</span>
-                </div>
-                <div class="slider-handle"></div>
-              </div>
-              
-              <div class="process-steps">
-                <div class="step">
-                  <div class="step-number">1</div>
-                  <img src="surface-step1.jpg" alt="Duplicate layer">
-                  <p>Duplicate layer</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">2</div>
-                  <img src="surface-step2.jpg" alt="Select area">
-                  <p>Select area</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">3</div>
-                  <img src="surface-step3.jpg" alt="Apply CAF">
-                  <p>Apply CAF</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">4</div>
-                  <img src="surface-step4.jpg" alt="Adjust opacity">
-                  <p>Adjust opacity</p>
-                </div>
-              </div>
-            </div>
-            
-            <p>Even out uneven lighting on scanned materials while preserving handmade marks. Creates professional backgrounds for quotes.</p>
-            
-            <div class="ps-technique">
-              <strong>Photoshop Technique:</strong>
-              <ol>
-                <li>Duplicate scanned layer (<span class="keyboard-shortcut">Ctrl/Cmd+J</span>)</li>
-                <li>Enhance contrast with Curves (<span class="keyboard-shortcut">Ctrl/Cmd+M</span>)</li>
-                <li>Select uneven areas with Quick Selection</li>
-                <li>Feather slightly (5-10px)</li>
-                <li>Use <span class="keyboard-shortcut">Edit → Content-Aware Fill</span></li>
-                <li>Sample only from evenly-lit areas</li>
-                <li>Lower Structure value (15-30) to maintain texture</li>
-                <li>Output to new layer</li>
-                <li>Adjust opacity (60-80%) to let original texture show through</li>
-              </ol>
-            </div>
-            
-            <div class="note">
-              <strong>For Text Areas:</strong> Apply subtle Gaussian Blur (2-3px) before placing text for better legibility.
-            </div>
-          </div>
-        </div>
-        
-        <div class="technique-card">
-          <div class="technique-header">
-            <h3 class="technique-title">Visual Bridges</h3>
-          </div>
-          <div class="technique-content">
-            <div class="technique-demo">
-              <div class="before-after-slider">
-                <div class="before-image">
-                  <img src="bridge-before.jpg" alt="Before visual bridge">
-                  <span class="image-label">Separate Elements</span>
-                </div>
-                <div class="after-image">
-                  <img src="bridge-after.jpg" alt="After visual bridge">
-                  <span class="image-label">Connected Elements</span>
-                </div>
-                <div class="slider-handle"></div>
-              </div>
-              
-              <div class="process-steps">
-                <div class="step">
-                  <div class="step-number">1</div>
-                  <img src="bridge-step1.jpg" alt="Position elements">
-                  <p>Position elements</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">2</div>
-                  <img src="bridge-step2.jpg" alt="Create path">
-                  <p>Create path</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">3</div>
-                  <img src="bridge-step3.jpg" alt="Apply CAF">
-                  <p>Apply CAF</p>
-                </div>
-                <div class="step">
-                  <div class="step-number">4</div>
-                  <img src="bridge-step4.jpg" alt="Blend transition">
-                  <p>Blend transition</p>
-                </div>
-              </div>
-            </div>
-            
-            <p>Merge analog and digital elements by extending hand-painted textures across photographs. Blurs boundaries between primary and secondary research.</p>
-            
-            <div class="ps-technique">
-              <strong>Photoshop Technique:</strong>
-              <ol>
-                <li>Position texture and photo on separate layers</li>
-                <li>Create new layer between them</li>
-                <li>Draw path with Lasso tool where texture should extend</li>
-                <li>Use <span class="keyboard-shortcut">Edit → Content-Aware Fill</span></li>
-                <li>Sample from texture areas</li>
-                <li>Set Rotation Adaptation to 4 for natural blending</li>
-                <li>Add layer mask with opacity gradient (100% to 0%)</li>
-                <li>Try Multiply, Overlay, or Soft Light blend mode</li>
-                <li>Reduce opacity to 40-70%</li>
-              </ol>
-            </div>
-            
-            <div class="note">
-              <strong>Advanced:</strong> Create multiple CAF layers with different sampling areas, then combine with different blend modes.
             </div>
           </div>
         </div>
