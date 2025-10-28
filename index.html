@@ -698,6 +698,199 @@
     font-size: 0.95rem;
   }
   
+  /* Interactive Keyboard Shortcut Game */
+  .shortcut-game {
+    background: var(--secondary-light);
+    border: 2px solid var(--secondary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 25px 0;
+    text-align: center;
+  }
+  
+  .shortcut-question {
+    margin-bottom: 20px;
+  }
+  
+  .shortcut-image {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .shortcut-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  @media (max-width: 600px) {
+    .shortcut-options {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .shortcut-option {
+    background: white;
+    border: 1px solid var(--secondary);
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+  }
+  
+  .shortcut-option:hover:not([disabled]) {
+    background: var(--secondary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  }
+  
+  .shortcut-option.correct {
+    background: #d4f7d4;
+    border-color: #5cb85c;
+  }
+  
+  .shortcut-option.incorrect {
+    background: #f7d4d4;
+    border-color: #d9534f;
+  }
+  
+  .shortcut-feedback {
+    min-height: 2rem;
+    margin: 15px 0;
+    font-weight: bold;
+  }
+  
+  .shortcut-feedback.correct {
+    color: #5cb85c;
+  }
+  
+  .shortcut-feedback.incorrect {
+    color: #d9534f;
+  }
+  
+  .shortcut-score {
+    font-weight: bold;
+    color: var(--secondary);
+    margin-bottom: 15px;
+  }
+  
+  /* Process Steps Carousel */
+  .process-carousel {
+    position: relative;
+    margin: 30px 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    border: 2px solid var(--primary);
+  }
+  
+  .carousel-container {
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  
+  .carousel-slide {
+    min-width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  }
+  
+  .slide-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .slide-content {
+      flex-direction: column;
+    }
+  }
+  
+  .slide-image {
+    flex: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+  }
+  
+  .slide-image img {
+    width: 100%;
+    display: block;
+  }
+  
+  .slide-text {
+    flex: 1;
+  }
+  
+  .slide-step {
+    color: var(--primary);
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .slide-title {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 8px;
+  }
+  
+  .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .indicator.active {
+    background: var(--primary);
+    transform: scale(1.2);
+  }
+  
+  .carousel-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .progress-bar {
+    height: 6px;
+    background: #eee;
+    border-radius: 3px;
+    margin: 15px 0;
+    overflow: hidden;
+  }
+  
+  .progress-indicator {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.5s ease;
+  }
+  
   /* Footer */
   footer {
     text-align: center;
@@ -718,16 +911,6 @@
   
   <div class="note">
     <strong>Key Focus:</strong> Using varied image scales and organic placement to highlight relationships between primary research, texture details, and contextual elements.
-  </div>
-
-  <!-- HEADER VISUAL EXAMPLE: ADD HERE -->
-  <div class="header-visual">
-    <div class="header-image-container">
-      <img src="header-example.jpg" alt="Dynamic layout example showing visual storytelling through arranged elements">
-    </div>
-    <div class="header-caption">
-      <p>Example of a dynamic layout that tells a visual story through careful arrangement of research, textures, and contextual elements. Note how varying scales and organic placement create flow and hierarchy.</p>
-    </div>
   </div>
   
   <!-- MODULE 1: STORYTELLING THROUGH LAYOUT -->
@@ -987,41 +1170,143 @@
     </div>
     <div class="module-content">
       <h3>Complete Process in 6 Steps:</h3>
-      <ol>
-        <li><strong>Start with a Texture:</strong> Place an interesting texture or research image as your starting point</li>
-        <li><strong>Extend with CAF:</strong> Use Content-Aware Fill to create an organic background pattern</li>
-        <li><strong>Create Focus Areas:</strong> Apply the Dodge tool to highlight important areas</li>
-        <li><strong>Position Key Elements:</strong> Place research at varied scales, guided by the background texture</li>
-        <li><strong>Fine-Tune Alignment:</strong> Use arrow keys for precise positioning</li>
-        <li><strong>Add Depth:</strong> Apply subtle drop shadows for dimension</li>
-      </ol>
+      
+      <!-- Interactive Process Carousel -->
+      <div class="process-carousel">
+        <div class="carousel-container">
+          <div class="carousel-track" id="carouselTrack">
+            <!-- Step 1 -->
+            <div class="carousel-slide">
+              <div class="slide-content">
+                <div class="slide-image">
+                  <img src="step1.jpg" alt="Starting with texture">
+                </div>
+                <div class="slide-text">
+                  <div class="slide-step">STEP 1</div>
+                  <h3 class="slide-title">Start with a Texture</h3>
+                  <p>Begin with an interesting texture or primary research image as your foundation. Look for organic patterns, unique colors, or compelling details.</p>
+                  <p><strong>Pro Tip:</strong> Consider using a texture that relates to your project theme, such as fabric swatches for fashion work or natural textures for environmental projects.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="carousel-slide">
+              <div class="slide-content">
+                <div class="slide-image">
+                  <img src="step2.jpg" alt="Content-Aware Fill">
+                </div>
+                <div class="slide-text">
+                  <div class="slide-step">STEP 2</div>
+                  <h3 class="slide-title">Extend with Content-Aware Fill</h3>
+                  <p>Expand your canvas and use Content-Aware Fill to create an organic background pattern that extends from your original texture.</p>
+                  <p><strong>Keyboard Shortcut:</strong> <span class="keyboard-shortcut">Alt+Backspace</span> to fill with foreground color, or <span class="keyboard-shortcut">Edit → Content-Aware Fill</span> for pattern extension.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="carousel-slide">
+              <div class="slide-content">
+                <div class="slide-image">
+                  <img src="step3.jpg" alt="Creating focus areas">
+                </div>
+                <div class="slide-text">
+                  <div class="slide-step">STEP 3</div>
+                  <h3 class="slide-title">Create Focus Areas</h3>
+                  <p>Use the Dodge tool (<span class="keyboard-shortcut">O</span>) to create lighter areas in your background where you'll place important visual elements.</p>
+                  <p><strong>Settings:</strong> Use a soft brush (0% hardness) with 20-30% exposure for subtle, natural highlights.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Step 4 -->
+            <div class="carousel-slide">
+              <div class="slide-content">
+                <div class="slide-image">
+                  <img src="step4.jpg" alt="Position key elements">
+                </div>
+                <div class="slide-text">
+                  <div class="slide-step">STEP 4</div>
+                  <h3 class="slide-title">Position Key Elements</h3>
+                  <p>Place your primary research and other elements at varied scales to create visual hierarchy.</p>
+                  <p><strong>Technique:</strong> Start with your most important image, making it larger, then add supporting elements in decreasing size to guide the viewer's eye.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Step 5 -->
+            <div class="carousel-slide">
+              <div class="slide-content">
+                <div class="slide-image">
+                  <img src="step5.jpg" alt="Fine-tune alignment">
+                </div>
+                <div class="slide-text">
+                  <div class="slide-step">STEP 5</div>
+                  <h3 class="slide-title">Fine-Tune Alignment</h3>
+                  <p>Use arrow keys for precise positioning of each element. Hold <span class="keyboard-shortcut">Shift</span> with arrows for 10px movements.</p>
+                  <p><strong>Pro Tip:</strong> Create visual relationships between elements by aligning edges, centers, or using the Rule of Thirds as a guide.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Step 6 -->
+            <div class="carousel-slide">
+              <div class="slide-content">
+                <div class="slide-image">
+                  <img src="step6.jpg" alt="Add depth">
+                </div>
+                <div class="slide-text">
+                  <div class="slide-step">STEP 6</div>
+                  <h3 class="slide-title">Add Depth</h3>
+                  <p>Apply subtle drop shadows to create dimension between your elements and the background.</p>
+                  <p><strong>Shortcut:</strong> Right-click layer → <span class="keyboard-shortcut">Layer Style → Drop Shadow</span> or use <span class="keyboard-shortcut">fx</span> icon in the Layers panel.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+          <div class="progress-indicator" id="progressIndicator"></div>
+        </div>
+        
+        <!-- Carousel Controls -->
+        <div class="carousel-nav">
+          <button class="btn" id="prevSlide">Previous Step</button>
+          <button class="btn btn-primary" id="nextSlide">Next Step</button>
+        </div>
+        
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators" id="carouselIndicators">
+          <!-- Indicators will be generated by JavaScript -->
+        </div>
+      </div>
       
       <div class="note">
         <strong>Remember:</strong> This approach is about letting the content itself guide your layout decisions rather than forcing elements into a predetermined grid.
       </div>
       
       <h3>Keyboard Shortcuts for Efficient Layout Work</h3>
-      <div class="keyboard-shortcuts">
-        <div class="shortcuts-grid">
-          <div class="shortcut-description">
-            <span class="keyboard-shortcut">V</span> <span>Move Tool</span>
-          </div>
-          <div class="shortcut-description">
-            <span class="keyboard-shortcut">O</span> <span>Dodge/Burn Tool</span>
-          </div>
-          <div class="shortcut-description">
-            <span class="keyboard-shortcut">Arrow Keys</span> <span>1px Movement</span>
-          </div>
-          <div class="shortcut-description">
-            <span class="keyboard-shortcut">Shift+Arrow Keys</span> <span>10px Movement</span>
-          </div>
-          <div class="shortcut-description">
-            <span class="keyboard-shortcut">Ctrl/Cmd+T</span> <span>Transform</span>
-          </div>
-          <div class="shortcut-description">
-            <span class="keyboard-shortcut">Ctrl/Cmd+J</span> <span>Duplicate Layer</span>
-          </div>
+      
+      <!-- Interactive Shortcut Game -->
+      <div class="shortcut-game" id="shortcutGame">
+        <h3>Test Your Photoshop Shortcut Knowledge</h3>
+        <p>Match the action to the correct keyboard shortcut:</p>
+        
+        <div class="shortcut-question">
+          <div id="currentAction">Loading question...</div>
         </div>
+        
+        <div class="shortcut-options" id="shortcutOptions">
+          <!-- Options will be filled by JavaScript -->
+        </div>
+        
+        <div class="shortcut-feedback" id="shortcutFeedback"></div>
+        <div class="shortcut-score" id="shortcutScore">Score: 0 / 0</div>
+        
+        <button class="btn btn-primary" id="nextQuestion" style="display: none;">Next Question</button>
       </div>
     </div>
   </div>
@@ -1132,8 +1417,238 @@ document.getElementById('randomizeBtn').addEventListener('click', function() {
   initializeGrid();
 });
 
-// Initialize grid on page load
-document.addEventListener('DOMContentLoaded', initializeGrid);
+// CAROUSEL FUNCTIONALITY
+let currentSlide = 0;
+const totalSlides = 6; // 6 steps in our process
+
+// Set up carousel indicators
+function setupCarousel() {
+  const track = document.getElementById('carouselTrack');
+  const indicators = document.getElementById('carouselIndicators');
+  
+  // Create indicators
+  for (let i = 0; i < totalSlides; i++) {
+    const indicator = document.createElement('div');
+    indicator.className = i === 0 ? 'indicator active' : 'indicator';
+    indicator.setAttribute('data-index', i);
+    indicator.addEventListener('click', () => goToSlide(i));
+    indicators.appendChild(indicator);
+  }
+  
+  // Set up progress bar
+  updateProgressBar();
+  
+  // Add event listeners for navigation
+  document.getElementById('prevSlide').addEventListener('click', prevSlide);
+  document.getElementById('nextSlide').addEventListener('click', nextSlide);
+}
+
+function goToSlide(index) {
+  if (index < 0 || index >= totalSlides) return;
+  
+  currentSlide = index;
+  const track = document.getElementById('carouselTrack');
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+  
+  // Update indicators
+  const indicators = document.querySelectorAll('.indicator');
+  indicators.forEach((ind, i) => {
+    ind.className = i === currentSlide ? 'indicator active' : 'indicator';
+  });
+  
+  // Update progress bar
+  updateProgressBar();
+}
+
+function prevSlide() {
+  goToSlide(currentSlide - 1);
+}
+
+function nextSlide() {
+  goToSlide(currentSlide + 1);
+}
+
+function updateProgressBar() {
+  const progress = ((currentSlide + 1) / totalSlides) * 100;
+  document.getElementById('progressIndicator').style.width = `${progress}%`;
+}
+
+// PHOTOSHOP SHORTCUTS GAME
+const shortcuts = [
+  { action: "Activate Move Tool", shortcut: "V" },
+  { action: "Free Transform", shortcut: "Ctrl/Cmd+T" },
+  { action: "Copy Selection", shortcut: "Ctrl/Cmd+C" },
+  { action: "Paste", shortcut: "Ctrl/Cmd+V" },
+  { action: "Activate Type Tool", shortcut: "T" },
+  { action: "Activate Dodge Tool", shortcut: "O" },
+  { action: "Undo", shortcut: "Ctrl/Cmd+Z" },
+  { action: "Save", shortcut: "Ctrl/Cmd+S" },
+  { action: "Duplicate Layer", shortcut: "Ctrl/Cmd+J" },
+  { action: "Deselect", shortcut: "Ctrl/Cmd+D" }
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function initShortcutGame() {
+  // Shuffle shortcuts for randomness
+  shuffleArray(shortcuts);
+  loadQuestion();
+}
+
+function loadQuestion() {
+  if (currentQuestion >= shortcuts.length) {
+    finishGame();
+    return;
+  }
+  
+  const currentShortcut = shortcuts[currentQuestion];
+  document.getElementById('currentAction').innerHTML = `<strong>${currentShortcut.action}</strong>`;
+  
+  // Get options (correct plus 3 random ones)
+  const correctShortcut = currentShortcut.shortcut;
+  const options = [correctShortcut];
+  
+  // Get random incorrect options
+  while (options.length < 4) {
+    const randomIndex = Math.floor(Math.random() * shortcuts.length);
+    const randomOption = shortcuts[randomIndex].shortcut;
+    if (!options.includes(randomOption)) {
+      options.push(randomOption);
+    }
+  }
+  
+  // Shuffle options
+  shuffleArray(options);
+  
+  // Create option buttons
+  const optionsContainer = document.getElementById('shortcutOptions');
+  optionsContainer.innerHTML = '';
+  
+  options.forEach(option => {
+    const button = document.createElement('button');
+    button.className = 'shortcut-option';
+    button.textContent = option;
+    button.addEventListener('click', () => checkAnswer(option, correctShortcut));
+    optionsContainer.appendChild(button);
+  });
+  
+  // Reset feedback
+  document.getElementById('shortcutFeedback').textContent = '';
+  document.getElementById('shortcutFeedback').className = 'shortcut-feedback';
+  
+  // Hide next button
+  document.getElementById('nextQuestion').style.display = 'none';
+  
+  // Update score display
+  document.getElementById('shortcutScore').textContent = `Score: ${score} / ${currentQuestion}`;
+}
+
+function checkAnswer(selectedOption, correctOption) {
+  const isCorrect = selectedOption === correctOption;
+  const feedbackElement = document.getElementById('shortcutFeedback');
+  
+  // Disable all options
+  const options = document.querySelectorAll('.shortcut-option');
+  options.forEach(option => {
+    option.disabled = true;
+    
+    if (option.textContent === correctOption) {
+      option.classList.add('correct');
+    } else if (option.textContent === selectedOption && selectedOption !== correctOption) {
+      option.classList.add('incorrect');
+    }
+  });
+  
+  // Update feedback
+  if (isCorrect) {
+    feedbackElement.textContent = '✓ Correct!';
+    feedbackElement.className = 'shortcut-feedback correct';
+    score++;
+  } else {
+    feedbackElement.textContent = `✗ Incorrect. The correct shortcut is ${correctOption}`;
+    feedbackElement.className = 'shortcut-feedback incorrect';
+  }
+  
+  // Show next button
+  document.getElementById('nextQuestion').style.display = 'block';
+  document.getElementById('nextQuestion').addEventListener('click', () => {
+    currentQuestion++;
+    loadQuestion();
+  });
+  
+  // Update score
+  document.getElementById('shortcutScore').textContent = `Score: ${score} / ${currentQuestion + 1}`;
+}
+
+function finishGame() {
+  const gameContainer = document.getElementById('shortcutGame');
+  const percentage = Math.round((score / shortcuts.length) * 100);
+  
+  let feedbackMessage = '';
+  if (percentage >= 90) {
+    feedbackMessage = '🎉 Excellent! You\'re a Photoshop keyboard shortcut pro!';
+  } else if (percentage >= 70) {
+    feedbackMessage = '👍 Great job! You know most of the key shortcuts.';
+  } else if (percentage >= 50) {
+    feedbackMessage = '👌 Good effort! Practice will make these shortcuts second nature.';
+  } else {
+    feedbackMessage = '💪 Keep practicing! Keyboard shortcuts will speed up your workflow.';
+  }
+  
+  gameContainer.innerHTML = `
+    <h3>Game Complete!</h3>
+    <div class="shortcut-score">Final Score: ${score} / ${shortcuts.length} (${percentage}%)</div>
+    <p>${feedbackMessage}</p>
+    <button class="btn btn-primary" id="restartGame">Play Again</button>
+  `;
+  
+  document.getElementById('restartGame').addEventListener('click', resetGame);
+}
+
+function resetGame() {
+  currentQuestion = 0;
+  score = 0;
+  shuffleArray(shortcuts);
+  
+  // Reset game container
+  const gameContainer = document.getElementById('shortcutGame');
+  gameContainer.innerHTML = `
+    <h3>Test Your Photoshop Shortcut Knowledge</h3>
+    <p>Match the action to the correct keyboard shortcut:</p>
+    
+    <div class="shortcut-question">
+      <div id="currentAction">Loading question...</div>
+    </div>
+    
+    <div class="shortcut-options" id="shortcutOptions">
+      <!-- Options will be filled by JavaScript -->
+    </div>
+    
+    <div class="shortcut-feedback" id="shortcutFeedback"></div>
+    <div class="shortcut-score" id="shortcutScore">Score: 0 / 0</div>
+    
+    <button class="btn btn-primary" id="nextQuestion" style="display: none;">Next Question</button>
+  `;
+  
+  loadQuestion();
+}
+
+// Helper function to shuffle arrays
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// Initialize everything when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+  initializeGrid();
+  setupCarousel();
+  initShortcutGame();
+});
 </script>
 </body>
 </html>
