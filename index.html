@@ -315,6 +315,11 @@
     border-bottom: 2px dashed var(--secondary);
     max-width: 100%; /* Add this */
     display: block; /* Add this */
+    transition: transform 0.3s ease;
+  }
+
+  .example-card img:hover {
+    transform: scale(1.05);
   }
 
   .example-caption {
@@ -1674,6 +1679,52 @@ document.addEventListener('DOMContentLoaded', function() {
   setupCarousel();
   initShortcutGame();
 });
+
+// Image modal functionality for example cards
+document.addEventListener('DOMContentLoaded', function() {
+  // Get all images inside example cards
+  const galleryImages = document.querySelectorAll('.example-card img');
+  
+  // Create modal elements
+  const modal = document.createElement('div');
+  modal.className = 'image-modal';
+  modal.style.display = 'none';
+  modal.style.position = 'fixed';
+  modal.style.zIndex = '1000';
+  modal.style.left = '0';
+  modal.style.top = '0';
+  modal.style.width = '100%';
+  modal.style.height = '100%';
+  modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+  modal.style.display = 'flex';
+  modal.style.alignItems = 'center';
+  modal.style.justifyContent = 'center';
+  
+  const modalImg = document.createElement('img');
+  modalImg.className = 'modal-content';
+  modalImg.style.maxWidth = '90%';
+  modalImg.style.maxHeight = '90%';
+  modalImg.style.objectFit = 'contain';
+  modalImg.style.border = '3px solid white';
+  
+  modal.appendChild(modalImg);
+  document.body.appendChild(modal);
+  
+  // Add click event to each gallery image
+  galleryImages.forEach(img => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', function() {
+      modal.style.display = 'flex';
+      modalImg.src = this.src;
+    });
+  });
+  
+  // Close modal when clicking outside the image
+  modal.addEventListener('click', function() {
+    modal.style.display = 'none';
+  });
+});
+  
 </script>
 </body>
 </html>
