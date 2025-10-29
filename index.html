@@ -1688,7 +1688,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Create modal elements
   const modal = document.createElement('div');
   modal.className = 'image-modal';
-  modal.style.display = 'none';
+  modal.style.display = 'none'; // Initially hidden
   modal.style.position = 'fixed';
   modal.style.zIndex = '1000';
   modal.style.left = '0';
@@ -1696,7 +1696,6 @@ document.addEventListener('DOMContentLoaded', function() {
   modal.style.width = '100%';
   modal.style.height = '100%';
   modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
-  modal.style.display = 'flex';
   modal.style.alignItems = 'center';
   modal.style.justifyContent = 'center';
   
@@ -1714,8 +1713,15 @@ document.addEventListener('DOMContentLoaded', function() {
   galleryImages.forEach(img => {
     img.style.cursor = 'pointer';
     img.addEventListener('click', function() {
-      modal.style.display = 'flex';
       modalImg.src = this.src;
+      // Ensure image is properly loaded
+      modalImg.onload = function() {
+        modal.style.display = 'flex';
+      };
+      // In case image is already cached
+      if (modalImg.complete) {
+        modal.style.display = 'flex';
+      }
     });
   });
   
